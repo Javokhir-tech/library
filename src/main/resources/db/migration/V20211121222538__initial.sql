@@ -1,0 +1,5 @@
+--CREATE TABLE books IF NOT EXISTS (
+--    id VARCHAR(255) NOT NULL,
+--    name VARCHAR(255),
+--
+--)
