@@ -26,8 +26,8 @@ public class User extends Model {
     @ManyToMany
     @JoinTable(
             name = "user_books",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id")
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_user_id"))},
+            inverseJoinColumns = {@JoinColumn(name = "book_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_book_id"))}
     )
     private Set<Book> books = new HashSet<>();
 }

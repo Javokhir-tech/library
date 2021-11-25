@@ -19,13 +19,13 @@ public class Book extends Model {
     @ManyToMany
     @JoinTable(
             name = "author_books",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id")
+            joinColumns = {@JoinColumn(name = "book_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_book_id"))},
+            inverseJoinColumns = {@JoinColumn(name = "author_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_author_id"))}
     )
     private Set<Author> authors = new HashSet<>();
 
     @OneToMany(mappedBy = "book")
-    private Set<Genre> genre = new HashSet<>();
+    private Set<Genre> genres = new HashSet<>();
 
     private Integer price;
 

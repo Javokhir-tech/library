@@ -3,11 +3,13 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://127.0.0.1:5432/library
     username: postgres
-    password: postgres
+    password: admin
   flyway:
     enabled: false
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+#    properties:
+#      hibernate.format_sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
