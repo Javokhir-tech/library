@@ -1,5 +1,7 @@
 package com.java.library.service.impl;
 
+import com.java.library.domain.Genre;
+import com.java.library.dto.BookDTO;
 import com.java.library.dto.GenreDTO;
 import com.java.library.dto.mapper.GenreMapper;
 import com.java.library.repository.GenreRepository;
@@ -9,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -30,9 +34,23 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public void deleteGenre(Long id) {
-        if (genreRepository.existsById(id))
-            genreRepository.deleteById(id);
-        else
-            throw new EntityNotFoundException();
+        genreRepository.delete(findById(id));
+    }
+
+    @Override
+    public Set<Genre> addGenresToBook(BookDTO bookDTO) {
+        Set<Genre> genres = new HashSet<>();
+        if (!bookDTO.getGenres().isEmpty()) {   // check if genres not in db create and set or just set to books
+            bookDTO.getGenres().parallelStream().forEach(genreDTO ->
+                    genreRepository.findByName(genreDTO.getName())
+                            .ifPresentOrElse(genres::add,
+                                    () -> genres.add(genreRepository.save(genreMapper.toEntity(genreDTO)))
+                            ));
+        }
+        return genres;
+    }
+
+    private Genre findById(Long id) {
+        return genreRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 }

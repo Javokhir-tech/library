@@ -5,6 +5,8 @@ import com.java.library.dto.AuthorDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface AuthorMapper {
 
@@ -14,4 +16,6 @@ public interface AuthorMapper {
     Author toEntity(AuthorDTO authorDTO);
 
     AuthorDTO toDTO(Author author);
+
+    List<AuthorDTO> toDTOList(List<Author> authors);
 }
