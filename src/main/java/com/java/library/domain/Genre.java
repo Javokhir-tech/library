@@ -32,17 +32,17 @@ public class Genre extends Model {
             this.books.add(book);
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-//        Genre genre = (Genre) o;
-//
-//        return Objects.equals(getId(), genre.getId());
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return 1887069089;
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Genre genre = (Genre) o;
+
+        return Objects.equals(getId(), genre.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return 1887069089;
+    }
 }

@@ -29,17 +29,17 @@ public class Author extends Model {
     @ToString.Exclude
     private Set<Book> books = new HashSet<>();
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-//        Author author = (Author) o;
-//
-//        return Objects.equals(getId(), author.getId());
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return 556590234;
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Author author = (Author) o;
+
+        return Objects.equals(getId(), author.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return 556590234;
+    }
 }

@@ -1,6 +1,7 @@
 package com.java.library.dto.mapper;
 
 import com.java.library.domain.Author;
+import com.java.library.dto.AuthorBooksDTO;
 import com.java.library.dto.AuthorDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -18,4 +19,6 @@ public interface AuthorMapper {
     AuthorDTO toDTO(Author author);
 
     List<AuthorDTO> toDTOList(List<Author> authors);
+
+    AuthorBooksDTO toAuthorBooksDTO(Author author);
 }

@@ -1,6 +1,7 @@
 package com.java.library.service.impl;
 
 import com.java.library.domain.Author;
+import com.java.library.dto.AuthorBooksDTO;
 import com.java.library.dto.AuthorDTO;
 import com.java.library.dto.BookDTO;
 import com.java.library.dto.mapper.AuthorMapper;
@@ -59,5 +60,10 @@ public class AuthorServiceImpl implements AuthorService {
                             ));
         }
         return authors;
+    }
+
+    @Override
+    public AuthorBooksDTO getAuthorsAllBooks(long id) {
+        return authorMapper.toAuthorBooksDTO(getAuthorById(id));
     }
 }

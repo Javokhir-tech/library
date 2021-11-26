@@ -1,6 +1,7 @@
 package com.java.library.service;
 
 import com.java.library.domain.Author;
+import com.java.library.dto.AuthorBooksDTO;
 import com.java.library.dto.AuthorDTO;
 import com.java.library.dto.BookDTO;
 
@@ -18,4 +19,6 @@ public interface AuthorService {
     void deleteAuthor(Long id);
 
     Set<Author> addAuthorsToBooks(BookDTO bookDTO);
+
+    AuthorBooksDTO getAuthorsAllBooks(long id);
 }
