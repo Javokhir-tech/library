@@ -3,7 +3,6 @@ package com.java.library.service.impl;
 import com.java.library.domain.Book;
 import com.java.library.domain.Genre;
 import com.java.library.dto.BookDTO;
-import com.java.library.dto.GenreDTO;
 import com.java.library.dto.mapper.BookMapper;
 import com.java.library.dto.mapper.GenreMapper;
 import com.java.library.repository.BookRepository;
@@ -16,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -42,17 +40,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDTO createBook(BookDTO bookDTO) {
         log.info("bookDTO {}", bookDTO);
-        // check genre if exist in db
         Set<Genre> genres = new HashSet<>();
-        if (!bookDTO.getGenres().isEmpty()) {
+        if (!bookDTO.getGenres().isEmpty()) {   // check if genres not in db create and set or just set to books
             bookDTO.getGenres().stream().forEach(genreDTO -> {
-//                List<Genre> genresInDb = genreRepository.findByName(genreDTO.getName());
-//                log.info("genresInDb {}", genresInDb);
-//                if (genresInDb.isEmpty()) {
-//                    genres.add(genreRepository.save(genreMapper.toEntity(genreDTO)));
-//                } else {
-//                    genres.addAll(genresInDb);
-//                }
                 genreRepository.findByName(genreDTO.getName())
                         .ifPresentOrElse(genre -> genres.add(genre),
                                 () -> genres.add(genreRepository.save(genreMapper.toEntity(genreDTO)))
@@ -67,8 +57,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Void deleteBook(Long id) {
-        bookRepository.deleteById(id);
-        return null;
+    public void deleteBook(Long id) {
+        if (bookRepository.existsById(id))
+            bookRepository.deleteById(id);
+        else
+            throw new EntityNotFoundException();
     }
 }

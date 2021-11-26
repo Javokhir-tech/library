@@ -15,13 +15,22 @@ public class GenreController {
 
     private final GenreService genreService;
 
+    // admen
     @GetMapping
     public ResponseEntity<List<GenreDTO>> getAllGenres() {
         return ResponseEntity.ok(genreService.getAllGenres());
     }
 
+    // admen
     @PostMapping
     public ResponseEntity<GenreDTO> addGenre(@RequestBody GenreDTO genreDTO) {
         return ResponseEntity.ok(genreService.addGenre(genreDTO));
+    }
+
+    // admen
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteGenre(@PathVariable("id") Long id) {
+        genreService.deleteGenre(id);
+        return ResponseEntity.ok().build();
     }
 }

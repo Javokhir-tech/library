@@ -9,4 +9,6 @@ public interface GenreService {
     GenreDTO addGenre(GenreDTO genreDTO);
 
     List<GenreDTO> getAllGenres();
+
+    void deleteGenre(Long id);
 }

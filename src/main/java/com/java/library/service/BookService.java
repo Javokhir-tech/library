@@ -12,5 +12,5 @@ public interface BookService {
 
     BookDTO createBook(BookDTO bookDTO);
 
-    Void deleteBook(Long id);
+    void deleteBook(Long id);
 }

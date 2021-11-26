@@ -8,6 +8,7 @@ import com.sun.istack.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -25,5 +26,13 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public List<GenreDTO> getAllGenres() {
         return genreMapper.toDTOList(genreRepository.findAll());
+    }
+
+    @Override
+    public void deleteGenre(Long id) {
+        if (genreRepository.existsById(id))
+            genreRepository.deleteById(id);
+        else
+            throw new EntityNotFoundException();
     }
 }
