@@ -13,10 +13,11 @@ public interface GenreMapper {
     @Mapping(target = "updatedAt", expression = "java(java.time.Instant.now())")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", expression = "java(java.time.Instant.now())")
-    @Mapping(target = "book", ignore = true)
     Genre toEntity(GenreDTO genreDTO);
 
     GenreDTO toDto(Genre genre);
 
     List<Genre> toEntityList(List<GenreDTO> genreDTOList);
+
+    List<GenreDTO> toDTOList(List<Genre> genres);
 }
