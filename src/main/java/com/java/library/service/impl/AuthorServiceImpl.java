@@ -50,7 +50,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Set<Author> addAuthorsToBooks(BookDTO bookDTO) {
-        log.info("authorRepository.findByFullName {}", authorRepository.findByFullName("J.K Rowling"));
+//        log.info("authorRepository.findByFullName {}", authorRepository.findByFullName("J.K Rowling"));
         Set<Author> authors = new HashSet<>();
         if (!bookDTO.getAuthors().isEmpty()) {
             bookDTO.getAuthors().parallelStream().forEach(authorDTO ->

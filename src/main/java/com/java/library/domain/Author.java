@@ -4,13 +4,30 @@ import com.java.library.domain.generic.Model;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@NamedEntityGraph(
+        name = "Author.books.genres",
+        attributeNodes = {
+            @NamedAttributeNode(value = "books", subgraph = "books-sub")
+        },
+        subgraphs = {
+            @NamedSubgraph(
+                    name = "books-sub",
+                    attributeNodes = {
+                            @NamedAttributeNode(value = "genres", subgraph = "genres-sub")
+                    }),
+            @NamedSubgraph(
+                    name = "genres-sub",
+                    attributeNodes = {
+                            @NamedAttributeNode("name")
+                    }
+            )
+        }
+)
 @Entity
 @Table(name = "authors")
 @Getter

@@ -11,5 +11,5 @@ public class AuthorBooksDTO {
     @NotBlank
     private String fullName;
 
-    private List<BookDTO> books;
+    private List<BookNameDTO> books;
 }

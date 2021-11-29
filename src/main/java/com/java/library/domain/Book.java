@@ -15,13 +15,29 @@ import java.util.Set;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@NamedEntityGraph(
+    name = "Book.genres",
+    attributeNodes = {
+        @NamedAttributeNode("name"),
+        @NamedAttributeNode("year"),
+        @NamedAttributeNode(value = "genres", subgraph = "genres-sub")
+    },
+    subgraphs = {
+       @NamedSubgraph(
+               name = "genres-sub",
+               attributeNodes ={
+                       @NamedAttributeNode("name")
+               }
+       )
+    }
+)
 public class Book extends Model {
 
     private String name;
 
     private Integer year;
 
-    @ManyToMany()
+    @ManyToMany
     @JoinTable(
             name = "author_books",
             joinColumns = {@JoinColumn(name = "book_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_book_id"))},

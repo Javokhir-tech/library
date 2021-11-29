@@ -16,7 +16,7 @@ public class AuthorController {
 
     private final AuthorService authorService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/get-books")
     public ResponseEntity<AuthorBooksDTO> getAuthorsAllBooks(@PathVariable("id") long id) {
         return ResponseEntity.ok(authorService.getAuthorsAllBooks(id));
     }
