@@ -31,8 +31,9 @@ dependencies {
 
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'org.springframework.kafka:spring-kafka'
-	// https://mvnrepository.com/artifact/javax.validation/validation-api
 	implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.5.12'	// swagger
 
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
