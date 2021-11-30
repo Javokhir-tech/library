@@ -13,7 +13,16 @@ spring:
 #      hibernate.format_sql: true
     hibernate:
       ddl-auto: update
+  kafka:
+    consumer:
+      group-id: tpd-loggers
+      auto-offset-reset: earliest
+    # change this property if you are using your own
+    # Kafka cluster or your Docker IP is different
+    bootstrap-servers: localhost:9092
+
 
 springdoc:
   api-docs:
     path: /api-docs
+
