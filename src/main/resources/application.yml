@@ -15,12 +15,14 @@ spring:
       ddl-auto: update
   kafka:
     consumer:
-      group-id: tpd-loggers
-      auto-offset-reset: earliest
+#      group-id: tpd-loggers
+#      auto-offset-reset: earliest
     # change this property if you are using your own
     # Kafka cluster or your Docker IP is different
     bootstrap-servers: localhost:9092
 
+kafka:
+  topic-name: Order_Book
 
 springdoc:
   api-docs:

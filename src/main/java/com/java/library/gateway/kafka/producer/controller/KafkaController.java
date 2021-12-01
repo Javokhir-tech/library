@@ -19,32 +19,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/kafka")
 public class KafkaController {
 
+    // send messages to kafka
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
-    private static final String TOPIC = "Kafka_Example";
+    @Value("${kafka.topic-name}")
+    private final String TOPIC;
 
-    @GetMapping("/hello/{msg}")
+    @GetMapping("/order/{book}")
     public void hello(@PathVariable("msg") String message) throws Exception {
+
         var msg = new Message(message);
-//        kafkaTemplate.send(TOPIC, msg);
-//        log.info("Send {}", msg);
-//        return "Hello Kafka!";
-        ListenableFuture<SendResult<String, Object>> future =
-                kafkaTemplate.send(TOPIC, message);
+
+        ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send(TOPIC, msg);
 
         future.addCallback(new ListenableFutureCallback<SendResult<String, Object>>() {
 
             @Override
             public void onSuccess(SendResult<String, Object> result) {
-                System.out.println("Sent message=[" + message +
-                        "] with offset=[" + result.getRecordMetadata().offset() + "]");
+                System.out.println("Sent message=[" + msg.toString() + "] with offset=[" + result.getRecordMetadata().offset() + "]");
             }
             @Override
             public void onFailure(Throwable ex) {
-                System.out.println("Unable to send message=["
-                        + message + "] due to : " + ex.getMessage());
+                System.out.println("Unable to send message=[" + msg.toString() + "] due to : " + ex.getMessage());
             }
         });
-
     }
 }

@@ -14,7 +14,7 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 import java.util.HashMap;
 import java.util.Map;
 
-@EnableKafka
+@EnableKafka    // is required to enable detection of @KafkaListener
 @Configuration
 public class KafkaConsumerConfig {
 
@@ -30,14 +30,12 @@ public class KafkaConsumerConfig {
         return new DefaultKafkaConsumerFactory<>(config);
     }
 
-
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory();
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }
-
 
     @Bean
     public ConsumerFactory<String, Message> userConsumerFactory() {
