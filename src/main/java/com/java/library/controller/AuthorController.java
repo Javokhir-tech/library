@@ -4,6 +4,7 @@ import com.java.library.dto.AuthorBooksDTO;
 import com.java.library.dto.AuthorDTO;
 import com.java.library.service.AuthorService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,11 +24,22 @@ public class AuthorController {
 
     @GetMapping
     public ResponseEntity<List<AuthorDTO>> getAllAuthors() {
-        return ResponseEntity.ok(authorService.getAllAuthors());
+        List<AuthorDTO> allAuthors = authorService.getAllAuthors();
+        HttpHeaders httpHeaders = totalCount(allAuthors);
+
+        return ResponseEntity.ok()
+                .headers(httpHeaders)
+                .body(allAuthors);
     }
 
     @PostMapping
     public ResponseEntity<AuthorDTO> createAuthor(@RequestBody AuthorDTO authorDTO) {
         return ResponseEntity.ok(authorService.addAuthor(authorDTO));
+    }
+
+    private HttpHeaders totalCount(List<AuthorDTO> authorDTOS) {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("X-Total-Count", String.valueOf(authorDTOS.size()));
+        return responseHeaders;
     }
 }
