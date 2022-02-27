@@ -3,6 +3,7 @@ package com.java.library.domain;
 
 import com.java.library.domain.generic.Model;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -24,17 +25,21 @@ public class User extends Model implements UserDetails {
 
     private String username;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @ManyToMany
     @JoinTable(
             name = "user_books",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_user_id"))},
             inverseJoinColumns = {@JoinColumn(name = "book_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_book_id"))}
     )
+    @ToString.Exclude
     private Set<Book> books = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singletonList(this.role);
     }
 
     @Override

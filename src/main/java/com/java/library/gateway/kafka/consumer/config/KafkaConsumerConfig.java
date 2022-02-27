@@ -15,7 +15,7 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 import java.util.HashMap;
 import java.util.Map;
 
-@EnableKafka    // is required to enable detection of @KafkaListener
+//@EnableKafka    // is required to enable detection of @KafkaListener
 @Configuration
 public class KafkaConsumerConfig {
 
